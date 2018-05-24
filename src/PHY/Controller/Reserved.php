@@ -17,6 +17,7 @@
     namespace PHY\Controller;
 
     use PHY\Exception;
+    use PHY\Http\Exception as HttpException;
     use PHY\Model\Report;
 
     /**
@@ -30,6 +31,10 @@
      */
     class reserved extends AController
     {
+        protected $message = 'Sorry, seems like some stuff broke... Please don\'t judge me harshly...';
+        protected $statusCode = 500;
+        protected $exception = null;
+
         protected static $contentTypes = [
             'css' => 'text/css; charset=utf-8',
             'js' => 'text/javascript; charset=utf-8',
@@ -173,5 +178,101 @@
                 $response->setContent(['error' => $error]);
             }
             return $response;
+        }
+
+        /**
+         * Set our error message.
+         *
+         * @param string $message
+         * @return $this
+         */
+        public function setMessage($message = '')
+        {
+            $this->message = $message;
+            return $this;
+        }
+
+        /**
+         * Get our error message.
+         *
+         * @return string
+         */
+        public function getMessage()
+        {
+            return $this->message;
+        }
+
+        /**
+         * Set our exception.
+         *
+         * @param \Exception $exception
+         * @return $this
+         */
+        public function setException(\Exception $exception)
+        {
+            $this->exception = $exception;
+            return $this;
+        }
+
+        /**
+         * Get our exception.
+         *
+         * @return \Exception
+         */
+        public function getException()
+        {
+            return $this->exception;
+        }
+
+        /**
+         * Set our status code.
+         *
+         * @param int $statusCode
+         * @return $this
+         */
+        public function setStatusCode($statusCode = 500)
+        {
+            $this->statusCode = $statusCode;
+            return $this;
+        }
+
+        /**
+         * Get our status code.
+         *
+         * @return int
+         */
+        public function getStatusCode()
+        {
+            return $this->statusCode;
+        }
+
+        /**
+         * Report a HTTP exception.
+         *
+         * @param HttpException $exception
+         * @return $this
+         */
+        public function httpException(HttpException $exception)
+        {
+            $this->setMessage($exception->getMessage());
+            $this->setStatusCode($exception->getStatusCode());
+            $this->setException($exception);
+            return $this;
+        }
+
+        /**
+         * GET /error
+         */
+        public function index_get()
+        {
+            $this->getResponse()->setStatusCode($this->getStatusCode());
+            $layout = $this->getLayout();
+            $layout->block('layout')->setTemplate('core/layout-error.phtml');
+            $layout->block('content')->setVariable('title', 'Bummer!');
+            if (!is_file($this->getApp()->getRootDirectory() . DIRECTORY_SEPARATOR . 'hideExceptions')) {
+                $layout->block('error/exception')->setVariable('exception', $this->getException());
+            }
+            $layout->block('error/message')->setVariable('message', $this->getMessage());
+            $this->getResponse()->addContent($this->getLayout());
         }
     }

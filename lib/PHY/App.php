@@ -492,8 +492,8 @@
                 $controller->action($method);
                 $response = $controller->render();
             } catch (\Exception $exception) {
-                /* @var \PHY\Controller\Error $controller */
-                $controller = new Controller\Error($this);
+                /* @var \PHY\Controller\Reserved $controller */
+                $controller = new Controller\Reserved($this);
                 if ($exception instanceof Database\Exception) {
                     $controller->setMessage('Sorry, yet there was an issue trying to connect to our database. Please try again in a bit');
                 } else if ($exception instanceof HttpException) {
@@ -506,7 +506,7 @@
                     $controller->setMessage('Seems there was general error. We are checking it out.');
                 }
                 $controller->setException($exception);
-                $controller->action('index');
+                $controller->action('error');
                 $response = $controller->render();
             }
 
