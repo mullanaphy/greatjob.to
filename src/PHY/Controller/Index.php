@@ -50,7 +50,9 @@
             $layout = $this->getLayout();
             $content = $layout->block('content');
             if (!$name || $name === '__index') {
-                $content->setTemplate('name/content.phtml');
+                $actions = $layout->block('modal');
+                $actions->setTemplate('name/index/actions.phtml');
+                $content->setTemplate('name/index.phtml');
                 return;
             }
 
