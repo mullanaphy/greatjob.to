@@ -17,14 +17,12 @@
 
     namespace PHY\Database\Mysqli;
 
-    use PHY\Database\ICollection;
-    use PHY\Database\IManager;
+    use PHY\Cache\ICache;
     use PHY\Database\IDatabase;
+    use PHY\Database\IManager;
     use PHY\Model\Collection;
     use PHY\Model\Exception;
     use PHY\Model\IEntity;
-    use PHY\Cache\ICache;
-    use PHY\Cache\Local as CacheLocal;
     use PHY\Variable\Int;
 
     /**
@@ -54,7 +52,7 @@
             'slug' => 'varchar(32) NOT NULL',
             'text' => 'text NOT NULL',
             'tinyint' => 'tinyint(4) signed NOT NULL',
-            'variable' => 'varchar(255) NOT NULL'
+            'variable' => 'varchar(255) NOT NULL',
         ];
 
         /**
@@ -381,6 +379,7 @@
             $source = self::parseSource($model);
             $cacheable = $source['cacheable'] && $this->getCache() !== null;
             $success = true;
+            $insertId = 0;
             try {
                 $db->autocommit(false);
                 foreach ($source['schema'] as $alias => $table) {
@@ -389,10 +388,16 @@
                         if (!$query->execute()) {
                             throw new \Exception('Abra Cadabra.');
                         }
+                        if ($alias === 'primary') {
+                            $insertId = $this->database->insert_id;
+                        }
                     }
                 }
                 $db->commit();
                 $db->autocommit(true);
+                if ($insertId) {
+                    $model->set($model->getPrimaryKey(), $insertId);
+                }
             } catch (\Exception $exception) {
                 $db->rollback();
                 $db->autocommit(true);
