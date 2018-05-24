@@ -58,7 +58,7 @@
             }
 
             $matches = [];
-            preg_match('/[' . join('|', $app->get('config/bummers')) . ']/', strtolower($name), $matches);
+            preg_match('/' . join('|', $app->get('config/bummers')) . '/', strtolower($name), $matches);
             $banned = count($matches) > 0;
 
             $nameItem = $manager->load(['slug' => $name], new Name);
