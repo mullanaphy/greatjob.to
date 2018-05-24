@@ -24,7 +24,7 @@
 ?>
 <div class="fixed-bottom container-fluid bg-dark py-3">
   <div class="row">
-    <div class="col-md-7">
+    <div class="col col-sm-8 col-md-7">
       <form id="generate" class="form-inline">
         <div class="input-group">
           <input id="generate-input" aria-describedby="generate-input-label" type="text" class="form-control"
@@ -36,12 +36,12 @@
         </div>
       </form>
     </div>
-    <div class="col-md-5 justify-content-end">
+    <div class="col col-sm-4 col-md-5 justify-content-end">
       <div class="input-group">
-        <div class="input-group-prepend">
+        <div class="hidden-sm input-group-prepend">
           <span class="input-group-text">Share:</span>
         </div>
-        <input id="url" type="text" class="form-control"
+        <input id="url" type="text" class="hidden-sm form-control"
                value="https://&#128075;&#128075;.to/<?= $this->clean($name) ?>"
                data-toggle="popover" data-placement="top" data-content="Copied!">
         <button class="btn btn-danger ml-2" data-toggle="modal" data-target="#modal-report" id="modal-report-opener">
