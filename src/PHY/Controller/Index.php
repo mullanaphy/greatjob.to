@@ -57,11 +57,16 @@
                 return;
             }
 
+            $matches = [];
+            preg_match('/[' . join('|', $app->get('config/bummers')) . ']/', strtolower($name), $matches);
+            $banned = count($matches) > 0;
+
             $nameItem = $manager->load(['slug' => $name], new Name);
             $currentTime = date('Y-m-d H:i:s');
             if (!$nameItem->id()) {
                 $nameItem->slug = $name;
                 $nameItem->created = $currentTime;
+                $nameItem->banned = $banned;
             } else {
                 $nameItem->updated = $currentTime;
             }
