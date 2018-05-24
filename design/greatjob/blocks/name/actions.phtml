@@ -38,12 +38,14 @@
     </div>
     <div class="col col-sm-4 col-md-5 justify-content-end">
       <div class="input-group">
-        <div class="hidden-sm input-group-prepend">
-          <span class="input-group-text">Share:</span>
+        <div class="d-sm-none d-md-none">
+          <div class="input-group-prepend">
+            <span class="input-group-text">Share:</span>
+          </div>
+          <input id="url" type="text" class="form-control"
+                 value="https://&#128075;&#128075;.to/<?= $this->clean($name) ?>"
+                 data-toggle="popover" data-placement="top" data-content="Copied!">
         </div>
-        <input id="url" type="text" class="hidden-sm form-control"
-               value="https://&#128075;&#128075;.to/<?= $this->clean($name) ?>"
-               data-toggle="popover" data-placement="top" data-content="Copied!">
         <button class="btn btn-danger ml-2" data-toggle="modal" data-target="#modal-report" id="modal-report-opener">
           Report
         </button>
