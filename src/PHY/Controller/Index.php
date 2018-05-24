@@ -45,7 +45,8 @@
             $response = $this->getResponse();
             $request = $this->getRequest();
 
-            $name = $request->getActionName();
+            $name = ltrim($request->getPath(), DIRECTORY_SEPARATOR);
+            $name = str_replace(DIRECTORY_SEPARATOR, ' ', $name);
 
             $layout = $this->getLayout();
             $content = $layout->block('content');

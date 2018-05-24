@@ -246,4 +246,11 @@
          * @return string
          */
         public function getActionName();
+
+        /**
+         * Get our request path coming in.
+         *
+         * @return string
+         */
+        public function getPath();
     }

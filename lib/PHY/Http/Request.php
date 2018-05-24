@@ -314,6 +314,13 @@
         /**
          * {@inheritDoc}
          */
+        public function getPath() {
+            return $this->path;
+        }
+
+        /**
+         * {@inheritDoc}
+         */
         public function getUrl($queryString = false)
         {
             $url = $this->getEnvironmental('REQUEST_URI', '/');
