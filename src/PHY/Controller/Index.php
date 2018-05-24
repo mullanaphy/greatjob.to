@@ -57,7 +57,8 @@
             $nameItem->count = $nameItem->count + 1;
             $manager->save($nameItem);
 
-            $actions = $layout->block('actions');
+            $actions = $layout->block('modal');
+            $actions->setTemplate('name/actions.phtml');
             if ($nameItem->banned) {
                 $response->setStatusCode(403);
                 $content->setTemplate('name/banned.phtml');
