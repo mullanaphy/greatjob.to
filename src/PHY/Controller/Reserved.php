@@ -159,7 +159,7 @@
                 $message = new Report([
                     'slug' => $fields['slug'],
                     'email' => $fields['email'],
-                    'comment' => $fields['content'],
+                    'comment' => $fields['comment'],
                     'created' => $created,
                     'updated' => $created,
                 ]);
