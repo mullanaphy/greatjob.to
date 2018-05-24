@@ -270,8 +270,8 @@
                 $paths = [];
 
                 foreach ($routes as $route) {
-                    $paths[$route . 'resource' . DIRECTORY_SEPARATOR . $theme . DIRECTORY_SEPARATOR . $location . DIRECTORY_SEPARATOR . $url] = DIRECTORY_SEPARATOR . 'resources' . DIRECTORY_SEPARATOR . $theme . DIRECTORY_SEPARATOR . $location . DIRECTORY_SEPARATOR . $url;
-                    $paths[$route . 'resource' . DIRECTORY_SEPARATOR . 'default' . DIRECTORY_SEPARATOR . $location . DIRECTORY_SEPARATOR . $url] = DIRECTORY_SEPARATOR . 'resources' . DIRECTORY_SEPARATOR . 'default' . DIRECTORY_SEPARATOR . $location . DIRECTORY_SEPARATOR . $url;
+                    $paths[$route . 'resource' . DIRECTORY_SEPARATOR . $theme . DIRECTORY_SEPARATOR . $location . DIRECTORY_SEPARATOR . $url] = DIRECTORY_SEPARATOR . 'resource' . DIRECTORY_SEPARATOR . $theme . DIRECTORY_SEPARATOR . $location . DIRECTORY_SEPARATOR . $url;
+                    $paths[$route . 'resource' . DIRECTORY_SEPARATOR . 'default' . DIRECTORY_SEPARATOR . $location . DIRECTORY_SEPARATOR . $url] = DIRECTORY_SEPARATOR . 'resource' . DIRECTORY_SEPARATOR . 'default' . DIRECTORY_SEPARATOR . $location . DIRECTORY_SEPARATOR . $url;
                 }
                 foreach ($paths as $check => $source) {
                     if (is_readable($check)) {

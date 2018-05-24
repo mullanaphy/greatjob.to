@@ -405,7 +405,7 @@
                     if (count($pathParameters)) {
                         $parameters = [
                             [],
-                            []
+                            [],
                         ];
                         $i = 1;
                         foreach ($pathParameters as $key) {
@@ -452,6 +452,7 @@
                     $controller = new $_($this);
                     $controllerName = 'index';
                     $actionName = $controllerClass;
+                    $method = $controllerClass;
                     $controllerClass = 'Index';
                 }
                 if (!$controller) {
@@ -460,7 +461,6 @@
 
                 $request->setControllerName($controllerName);
                 $request->setActionName($actionName);
-
 
                 /*
                  * Let's do some XSRF stuffs.
@@ -585,7 +585,7 @@
             if ($prepend) {
                 $namespaces = $this->classNamespaces;
                 $this->classNamespaces = [
-                    $namespace => $namespace
+                    $namespace => $namespace,
                 ];
                 foreach ($namespaces as $namespace) {
                     $this->classNamespaces[$namespace] = $namespace;
