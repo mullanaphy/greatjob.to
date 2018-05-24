@@ -60,6 +60,7 @@
             $nameItem = $manager->load(['slug' => $name], new Name);
             $currentTime = date('Y-m-d H:i:s');
             if (!$nameItem->id()) {
+                $nameItem->slug = $name;
                 $nameItem->created = $currentTime;
             } else {
                 $nameItem->updated = $currentTime;
