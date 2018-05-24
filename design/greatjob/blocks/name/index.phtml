@@ -23,16 +23,20 @@
      * @var $count int
      */
 ?>
-<div class="jumbotron">
-  <div class="container text-center">
-    <h1 class="display-4">Great Job! <strong><?= $this->clean($name) ?></strong> &#128075;&#128075;</h1>
-    <p class="lead">Someone thinks you're doing swell!</p>
-  </div>
-</div>
 <div class="container">
   <div class="row">
     <div class="col text-center">
-      <img class="img-fluid" src="<?= $this->url('greatjob-1.gif', 'image') ?>">
+      <form id="generate" class="form-inline">
+        <div class="input-group">
+          <input id="generate-input" aria-describedby="generate-input-label" type="text" class="form-control"
+                 data-toggle="popover" data-placement="top" data-content="Please enter a name!" value=""
+                 placeholder="Hey (First Name)!">
+          <div class="input-group-append">
+            <button id="generate-input" type="submit" class="btn btn-primary btn-outline">&#128075;&#128075;</button>
+          </div>
+        </div>
+      </form>
     </div>
   </div>
 </div>
+<script src="<?= $this->url('report.js', 'js') ?>"></script>

@@ -1,4 +1,5 @@
 <?php
+
     /**
      * greatjob.to
      *
@@ -11,28 +12,40 @@
      * If you did not receive a copy of the license and are unable to
      * obtain it through the world-wide-web, please send an email
      * to john@jo.mu so we can send you a copy immediately.
+     */
+
+    namespace PHY\Model\Name;
+
+    use PHY\Model\Entity;
+
+    /**
+     * Name of a viewer.
      *
-     * @package PHY
+     * @package PHY\Model\Name\Event
      * @category PHY\GreatJob
      * @copyright Copyright (c) 2018 John Mullanaphy (https://jo.mu/)
      * @license http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
      * @author John Mullanaphy <john@jo.mu>
-     *
-     * @var $this \PHY\View\Block
-     * @var $name string
-     * @var $count int
      */
-?>
-<div class="jumbotron">
-  <div class="container text-center">
-    <h1 class="display-4">Great Job! <strong><?= $this->clean($name) ?></strong> &#128075;&#128075;</h1>
-    <p class="lead">Someone thinks you're doing swell!</p>
-  </div>
-</div>
-<div class="container">
-  <div class="row">
-    <div class="col text-center">
-      <img class="img-fluid" src="<?= $this->url('greatjob-1.gif', 'image') ?>">
-    </div>
-  </div>
-</div>
+    class Event extends Entity
+    {
+
+        protected static $_source = [
+            'schema' => [
+                'primary' => [
+                    'table' => 'name',
+                    'columns' => [
+                        'name_id' => 'variable',
+                        'visitor' => 'int',
+                        'created' => 'date',
+                    ],
+                    'keys' => [
+                        'local' => [
+                            'name_id' => 'index',
+                        ],
+                    ],
+                ],
+            ],
+        ];
+
+    }

@@ -1,9 +1,12 @@
 (function($) {
   // Generate a url.
   $(function() {
-    var form = document.getElementById('generate');
-    var element = document.getElementById('generate-input');
     var alertElement = $('#generate-input');
+    if (!alertElement) {
+      return;
+    }
+    var element = document.getElementById('generate-input');
+    var form = document.getElementById('generate');
     form.addEventListener('submit', function(event) {
       event.preventDefault && event.preventDefault();
       event.stopPropagation && event.stopPropagation();
@@ -23,8 +26,11 @@
 (function($) {
   // Copy a url.
   $(function() {
-    var element = document.getElementById('url');
     var alertElement = $('#url');
+    if (!alertElement) {
+      return;
+    }
+    var element = document.getElementById('url');
     element.addEventListener('click', function() {
       element.select();
       var success = document.execCommand('copy');
@@ -40,6 +46,9 @@
 (function($) {
   // Report a url.
   var alertElement = $('#modal-report-thanks');
+  if (!alertElement) {
+    return;
+  }
   var formElement = $('#model-report-form');
   var slugElement = $('#modal-report-slug');
   var emailElement = $('#modal-report-email');

@@ -17,6 +17,7 @@
     namespace PHY\Controller;
 
     use PHY\Model\Name;
+    use PHY\Model\Name\Event as NameEvent;
 
     /**
      * Home page.
@@ -48,7 +49,7 @@
 
             $layout = $this->getLayout();
             $content = $layout->block('content');
-            if (!$name) {
+            if (!$name || $name === '__index') {
                 $content->setTemplate('name/content.phtml');
                 return;
             }
@@ -56,6 +57,20 @@
             $nameItem = $manager->load(['slug' => $name], new Name);
             $nameItem->count = $nameItem->count + 1;
             $manager->save($nameItem);
+
+            // Anonymous visitor will just be 0.0.0.0, otherwise we'll strip off the last octet since we don't need to
+            // be precise when storing visitors, we just want to be able to get a general idea of local at a later date.
+            $visitor = '0.0.0.0';
+            if (isset($_SERVER['REMOTE_ADDR'])) {
+                $visitor = explode('.', $_SERVER['REMOTE_ADDR']);
+                $visitor[count($visitor) - 1] = '0';
+                $visitor = ip2long(implode('.', $visitor));
+            }
+
+            $nameEvent = new NameEvent;
+            $nameEvent->name_id = $nameItem->id();
+            $nameEvent->visitor = $visitor;
+            $manager->save($nameEvent);
 
             $actions = $layout->block('modal');
             $actions->setTemplate('name/actions.phtml');
