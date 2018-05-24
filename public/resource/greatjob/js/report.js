@@ -65,7 +65,7 @@
           slug: slugElement.val(),
           email: emailElement.val(),
           comment: commentElement.val(),
-          xsrfId: xsrfIf
+          xsrfId: xsrfId
         }
       },
       complete: function() {
