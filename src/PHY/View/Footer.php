@@ -33,7 +33,7 @@
          */
         public function structure()
         {
-            $this->setTemplate('core/sections/head.phtml')->setVariable('app', $app = $this->getLayout()
+            $this->setTemplate('core/sections/footer.phtml')->setVariable('app', $app = $this->getLayout()
                     ->getController()
                     ->getApp());
         }
