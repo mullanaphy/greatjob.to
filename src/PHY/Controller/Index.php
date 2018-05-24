@@ -50,7 +50,7 @@
 
             $layout = $this->getLayout();
             $content = $layout->block('content');
-            if (!$name || $name === '__index') {
+            if (!$name || $request->getActionName() === '__index') {
                 $actions = $layout->block('modal');
                 $actions->setTemplate('name/index/actions.phtml');
                 $content->setTemplate('name/index.phtml');
@@ -58,6 +58,12 @@
             }
 
             $nameItem = $manager->load(['slug' => $name], new Name);
+            $currentTime = date('Y-m-d H:i:s');
+            if (!$nameItem->id()) {
+                $nameItem->created = $currentTime;
+            } else {
+                $nameItem->updated = $currentTime;
+            }
             $nameItem->count = $nameItem->count + 1;
             $manager->save($nameItem);
 
@@ -73,6 +79,7 @@
             $nameEvent = new NameEvent;
             $nameEvent->name_id = $nameItem->id();
             $nameEvent->visitor = $visitor;
+            $nameEvent->created = $currentTime;
             $manager->save($nameEvent);
 
             $actions = $layout->block('modal');
