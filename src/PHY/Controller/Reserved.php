@@ -261,18 +261,19 @@
         }
 
         /**
-         * GET /error
+         * GET /reserved/error
          */
-        public function index_get()
+        public function error_get()
         {
             $this->getResponse()->setStatusCode($this->getStatusCode());
             $layout = $this->getLayout();
-            $layout->block('layout')->setTemplate('core/layout-error.phtml');
-            $layout->block('content')->setVariable('title', 'Bummer!');
+            $block = $layout->block('layout');
+            $block->setTemplate('core/layout-error.phtml');
             if (!is_file($this->getApp()->getRootDirectory() . DIRECTORY_SEPARATOR . 'hideExceptions')) {
-                $layout->block('error/exception')->setVariable('exception', $this->getException());
+                $block->setVariable('exception', $this->getException());
+            } else {
+                $block->setVariable('exception', '');
             }
-            $layout->block('error/message')->setVariable('message', $this->getMessage());
-            $this->getResponse()->addContent($this->getLayout());
+            $block->setVariable('message', $this->getMessage());
         }
     }
