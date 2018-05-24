@@ -49,6 +49,7 @@
   if (!alertElement) {
     return;
   }
+  var modalElement = $('#modal-report');
   var formElement = $('#model-report-form');
   var slugElement = $('#modal-report-slug');
   var emailElement = $('#modal-report-email');
@@ -57,17 +58,18 @@
     event.preventDefault && event.preventDefault();
     event.stopPropagation && event.stopPropagation();
 
-    $.ajax({
-      type: 'POST',
+    $.post({
       url: '/reserved/report',
       data: {
         report: {
           slug: slugElement.val(),
           email: emailElement.val(),
-          comment: commentElement.val()
+          comment: commentElement.val(),
+          xsrfId: xsrfIf
         }
       },
       complete: function() {
+        modalElement.modal('hide');
         alertElement.modal('show');
       },
       dataType: 'json'
