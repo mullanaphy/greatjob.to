@@ -59,13 +59,12 @@
     event.stopPropagation && event.stopPropagation();
 
     $.post({
-      url: '/reserved/report',
+      url: '/reserved/report?xsrfId=' + xsrfId,
       data: {
         report: {
           slug: slugElement.val(),
           email: emailElement.val(),
-          comment: commentElement.val(),
-          xsrfId: xsrfId
+          comment: commentElement.val()
         }
       },
       complete: function() {
