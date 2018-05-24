@@ -267,6 +267,7 @@
         {
             $this->getResponse()->setStatusCode($this->getStatusCode());
             $layout = $this->getLayout();
+            $layout->loadBlocks('default', 'error');
             $block = $layout->block('layout');
             $block->setTemplate('core/layout-error.phtml');
             if (!is_file($this->getApp()->getRootDirectory() . DIRECTORY_SEPARATOR . 'hideExceptions')) {

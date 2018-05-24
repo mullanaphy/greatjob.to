@@ -43,7 +43,6 @@
                     'keys' => [
                         'local' => [
                             'slug' => 'unique',
-                            'author_id' => 'index',
                         ],
                     ],
                 ],
