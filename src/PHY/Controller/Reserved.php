@@ -146,8 +146,8 @@
                 $database = $app->get('database');
                 $manager = $database->getManager();
 
-                if (!array_key_exists('slug', $fields) || !$fields['slug']) {
-                    throw new Exception('Missing slug.');
+                if (!array_key_exists('id', $fields) || !$fields['id']) {
+                    throw new Exception('Missing name id.');
                 }
                 if (!array_key_exists('email', $fields) || !filter_var($fields['email'], FILTER_VALIDATE_EMAIL)) {
                     $fields['email'] = '';
