@@ -18,7 +18,7 @@
 
     use PHY\Exception;
     use PHY\Http\Exception as HttpException;
-    use PHY\Model\Report;
+    use PHY\Model\Name\Report as NameReport;
 
     /**
      * My admin panel. Theoretically this should probably be broken up into smaller controllers but #yolo.
@@ -156,14 +156,14 @@
                     $fields['comment'] = '';
                 }
 
-                $message = new Report([
-                    'slug' => $fields['slug'],
+                $report = new NameReport([
+                    'name_id' => $fields['id'],
                     'email' => $fields['email'],
                     'comment' => $fields['comment'],
                     'created' => $created,
                     'updated' => $created,
                 ]);
-                $manager->save($message);
+                $manager->save($report);
 
                 $statusCode = 204;
                 $error = false;

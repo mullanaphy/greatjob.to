@@ -51,7 +51,7 @@
   }
   var modalElement = $('#modal-report');
   var formElement = $('#model-report-form');
-  var slugElement = $('#modal-report-slug');
+  var idElement = $('#modal-report-id');
   var emailElement = $('#modal-report-email');
   var commentElement = $('#modal-report-comment');
   formElement.submit(function(event) {
@@ -62,7 +62,7 @@
       url: '/reserved/report?xsrfId=' + xsrfId,
       data: {
         report: {
-          slug: slugElement.val(),
+          id: idElement.val(),
           email: emailElement.val(),
           comment: commentElement.val()
         }

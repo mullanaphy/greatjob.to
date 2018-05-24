@@ -20,6 +20,7 @@
      *
      * @var $this \PHY\View\Block
      * @var $name string
+     * @var $id int
      */
 ?>
 <div class="fixed-bottom container-fluid bg-dark py-3">
@@ -54,7 +55,7 @@
 <div class="modal fade" id="modal-report" tabindex="-1" role="dialog" aria-labelledby="modal-report-opener"
      aria-hidden="true">
   <form action="<?= $this->url('reserved/report') ?>" method="post" id="model-report-form">
-    <input type="hidden" name="slug" id="modal-report-slug" value="<?= $this->clean($name) ?>">
+    <input type="hidden" name="id" id="modal-report-id" value="<?= (int)$id ?>">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">

@@ -14,12 +14,14 @@
      * to john@jo.mu so we can send you a copy immediately.
      */
 
-    namespace PHY\Model;
+    namespace PHY\Model\Name;
+
+    use PHY\Model\Entity;
 
     /**
      * For our report page so my inbox doesn't get flooded.
      *
-     * @package PHY\Model\Report
+     * @package PHY\Model\Name\Report
      * @category PHY\GreatJob
      * @copyright Copyright (c) 2018 John Mullanaphy (https://jo.mu/)
      * @license http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
@@ -29,11 +31,11 @@
     {
 
         protected static $_source = [
-            'cacheable' => true,
             'schema' => [
                 'primary' => [
-                    'table' => 'message',
+                    'table' => 'name_report',
                     'columns' => [
+                        'name_id' => 'variable',
                         'email' => 'variable',
                         'comment' => 'text',
                         'alerted' => 'date',
@@ -42,6 +44,11 @@
                         'updated' => 'date',
                         'read' => 'date',
                         'deleted' => 'boolean',
+                    ],
+                    'keys' => [
+                        'local' => [
+                            'name_id' => 'index',
+                        ],
                     ],
                 ],
             ],
