@@ -29,15 +29,14 @@
     {
 
         protected static $_source = [
-            'cacheable' => [
-                'slug',
-            ],
             'schema' => [
                 'primary' => [
                     'table' => 'name',
                     'columns' => [
                         'slug' => 'variable',
                         'count' => 'int',
+                        'banned' => 'boolean',
+                        'reason' => 'variable',
                         'created' => 'date',
                         'updated' => 'date',
                     ],

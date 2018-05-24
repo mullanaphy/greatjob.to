@@ -78,7 +78,7 @@
                                 $sourceFile = explode('?', $sourceFile)[0];
                             }
                             $source = false;
-                            foreach ($path->getPaths('public' . DIRECTORY_SEPARATOR . 'resources' . DIRECTORY_SEPARATOR . $theme . DIRECTORY_SEPARATOR . $type . DIRECTORY_SEPARATOR . str_replace('/', DIRECTORY_SEPARATOR, $sourceFile), 'public' . DIRECTORY_SEPARATOR . 'resources' . DIRECTORY_SEPARATOR . 'default' . DIRECTORY_SEPARATOR . $type . DIRECTORY_SEPARATOR . str_replace('/', DIRECTORY_SEPARATOR, $sourceFile)) as $_source) {
+                            foreach ($path->getPaths('public' . DIRECTORY_SEPARATOR . 'resource' . DIRECTORY_SEPARATOR . $theme . DIRECTORY_SEPARATOR . $type . DIRECTORY_SEPARATOR . str_replace('/', DIRECTORY_SEPARATOR, $sourceFile), 'public' . DIRECTORY_SEPARATOR . 'resources' . DIRECTORY_SEPARATOR . 'default' . DIRECTORY_SEPARATOR . $type . DIRECTORY_SEPARATOR . str_replace('/', DIRECTORY_SEPARATOR, $sourceFile)) as $_source) {
                                 if (is_file($_source)) {
                                     $source = $_source;
                                     break;
@@ -101,7 +101,7 @@
                                     $sourceFile = explode('?', $sourceFile)[0];
                                 }
                                 $source = false;
-                                foreach ($path->getPaths('public' . DIRECTORY_SEPARATOR . 'resources' . DIRECTORY_SEPARATOR . $theme . DIRECTORY_SEPARATOR . $type . DIRECTORY_SEPARATOR . str_replace('/', DIRECTORY_SEPARATOR, $sourceFile), 'public' . DIRECTORY_SEPARATOR . 'resources' . DIRECTORY_SEPARATOR . 'default' . DIRECTORY_SEPARATOR . $type . DIRECTORY_SEPARATOR . str_replace('/', DIRECTORY_SEPARATOR, $sourceFile)) as $_source) {
+                                foreach ($path->getPaths('public' . DIRECTORY_SEPARATOR . 'resource' . DIRECTORY_SEPARATOR . $theme . DIRECTORY_SEPARATOR . $type . DIRECTORY_SEPARATOR . str_replace('/', DIRECTORY_SEPARATOR, $sourceFile), 'public' . DIRECTORY_SEPARATOR . 'resources' . DIRECTORY_SEPARATOR . 'default' . DIRECTORY_SEPARATOR . $type . DIRECTORY_SEPARATOR . str_replace('/', DIRECTORY_SEPARATOR, $sourceFile)) as $_source) {
                                     if (is_file($_source)) {
                                         $source = $_source;
                                         break;
@@ -117,8 +117,8 @@
                 }
                 if ($live) {
                     foreach ($merge as $type => $items) {
-                        $cached_file = 'resources' . DIRECTORY_SEPARATOR . 'cached' . DIRECTORY_SEPARATOR . $type . DIRECTORY_SEPARATOR . md5(implode(array_keys($items)) . implode($items)) . '.' . $type;
-                        if (!is_file($cached_file)) {
+                        $cachedFile = 'resource' . DIRECTORY_SEPARATOR . 'cached' . DIRECTORY_SEPARATOR . $type . DIRECTORY_SEPARATOR . md5(implode(array_keys($items)) . implode($items)) . '.' . $type;
+                        if (!is_file($cachedFile)) {
                             $fileContent = '';
                             foreach ($items as $item => $time) {
                                 $FILE = fopen($item, 'r');
@@ -126,7 +126,7 @@
                                 fclose($FILE);
                             }
                             if (strlen($fileContent) > 0) {
-                                $FILE = fopen($cached_file, 'w');
+                                $FILE = fopen($cachedFile, 'w');
                                 $minifier = $app->getClass('Minify\\' . strtoupper($type));
                                 if ($minifier) {
                                     fwrite($FILE, $minifier::minify($fileContent));
@@ -137,7 +137,7 @@
                             }
                         }
                         $files[$type][] = array_merge($defaults[$type], [
-                            $defaults['key'][$type] => str_replace(DIRECTORY_SEPARATOR, '/', str_replace($documentRoot, '', $cached_file))
+                            $defaults['key'][$type] => str_replace(DIRECTORY_SEPARATOR, '/', str_replace($documentRoot, '', $cachedFile))
                         ]);
                     }
                     $cache->set($key, $files, time() + 3600);

@@ -16,7 +16,7 @@
 
     namespace PHY\Controller;
 
-    use PHY\Model\Config as ConfigModel;
+    use PHY\Model\Name;
 
     /**
      * Home page.
@@ -35,90 +35,42 @@
          */
         public function index_get()
         {
-
             $app = $this->getApp();
-
-            /** @var \PHY\Cache\ICache $cache */
-            $cache = $app->get('cache/rendered');
 
             /** @var \PHY\Database\IDatabase $database */
             $database = $app->get('database');
             $manager = $database->getManager();
 
-            $limitConfig = $manager->load(['key' => 'limit'], new ConfigModel);
-            $limit = $limitConfig->value
-                ?: 5;
-
             $response = $this->getResponse();
             $request = $this->getRequest();
 
-            $user = $app->getUser();
-            $visibility = $user->getVisibility();
-            $visibility[] = '';
+            $name = $request->getActionName();
 
-            $actionName = $request->getActionName();
-            $pageId = (int)$actionName;
-            if (!$pageId) {
-                $pageId = 1;
+            $layout = $this->getLayout();
+            $content = $layout->block('content');
+            if (!$name) {
+                $content->setTemplate('name/content.phtml');
+                return $response;
             }
-            $cacheKey = 'html/index/blog/' . implode(',', $visibility) . '-' . $limit . '-' . $pageId;
 
-            if (!$cachedPage = $cache->get($cacheKey)) {
-                $layout = $this->getLayout();
-                $head = $layout->block('head');
-                $content = $layout->block('content');
+            $nameItem = $manager->load(['slug' => $name], new Name);
+            $nameItem->count = $nameItem->count + 1;
+            $manager->save($nameItem);
 
-                $head->setVariable('title', 'Current happenings of John Mullanaphy' . ($pageId > 1
-                        ? ' (Page ' . $pageId . ')'
-                        : ''));
-                $head->setVariable('description', 'Recaps of my current life which usually involves nerdy hobbies.');
-
-                /** @var \PHY\Model\User\Collection $collection */
-                $cached = true;
-                $count = $cache->get($cacheKey . '-count');
-                if (!$collection = $cache->get($cacheKey . '-inner')) {
-                    $cached = false;
-                    $collection = $manager->getCollection('Blog');
-                    $collection->where()->field('visible')->in($visibility);
-                    $collection->order()->by('created')->direction('desc');
-                    if (!is_numeric($count)) {
-                        $count = $collection->count();
-                    }
-                }
-
-                $content->setVariable('collection', $collection);
-                $content->setVariable('count', $count);
-                $content->setTemplate('blog/content.phtml');
-
-                if ($count > $limit) {
-                    $offset = ($pageId * $limit) - $limit;
-                    if ($offset >= $count) {
-                        return $this->redirect('/');
-                    }
-                    if (!$cached) {
-                        $collection->limit($offset, $limit);
-                        $cachedVersions = $cache->get('html/index/blog');
-                        if (!$cachedVersions) {
-                            $cachedVersions = [];
-                        }
-                        $cachedVersions[] = $cacheKey;
-                        $cache->replace('html/index/blog', $cachedVersions);
-                        $cache->set($cacheKey . '-inner', $collection->toArray());
-                        $cache->set($cacheKey . '-count', $count);
-                    }
-                    $content->setChild('blog/pagination', [
-                        'viewClass' => 'pagination',
-                        'limit' => $limit,
-                        'total' => $count,
-                        'pageId' => $pageId,
-                        'url' => '/page/[%i]'
-                    ]);
-                }
-
-                $cachedPage = $layout->render();
-                $cache->set($cacheKey, $cachedPage);
+            $actions = $layout->block('actions');
+            if ($nameItem->banned) {
+                $response->setStatusCode(403);
+                $content->setTemplate('name/banned.phtml');
+                $content->setVariable('reason', $nameItem->reason);
+                $actions->setVariable('name', '');
+                return $response;
             }
-            $response->setContent([$cachedPage]);
+
+            $content->setTemplate('name/content.phtml');
+            $content->setVariable('name', $name);
+            $content->setVariable('count', $nameItem->count);
+            $actions->setVariable('name', $name);
+
             return $response;
         }
 

@@ -9,7 +9,12 @@
         "viewClass": "footer"
       },
       "content": {
-        "viewClass": "parser"
+        "viewClass": "parser",
+        "children": {
+          "actions": {
+            "template": "name/actions.phtml"
+          }
+        }
       },
       "modal": {
         "template": "generic/modal.phtml"
