@@ -25,8 +25,8 @@
 ?>
 <div class="fixed-bottom container-fluid bg-dark py-3">
   <div class="row">
-    <div class="col-8 col-md-7">
-      <form id="generate" class="form-inline">
+    <div class="col-8 col-md-4 mr-auto">
+      <form id="generate" class="form">
         <div class="input-group">
           <input id="generate-input" aria-describedby="generate-input-label" type="text" class="form-control"
                  data-toggle="popover" data-placement="top" data-content="Please enter a name!" value=""
@@ -37,18 +37,20 @@
         </div>
       </form>
     </div>
-    <div class="col-4 col-md-5 justify-content-end">
+    <div class="col-4 ml-auto d-none d-lg-block">
       <div class="input-group">
-        <div class="input-group-prepend d-none d-lg-inline">
+        <div class="input-group-prepend">
           <span class="input-group-text">Share:</span>
         </div>
-        <input id="url" type="text" class="d-none d-lg-inline form-control"
+        <input id="url" type="text" class="form-control"
                value="https://&#128075;&#128075;.to/<?= $this->clean($name) ?>"
                data-toggle="popover" data-placement="top" data-content="Copied!">
-        <button class="btn btn-danger ml-2" data-toggle="modal" data-target="#modal-report" id="modal-report-opener">
-          Report
-        </button>
       </div>
+    </div>
+    <div class="col-1 ml-auto">
+      <button class="btn btn-danger ml-2" data-toggle="modal" data-target="#modal-report" id="modal-report-opener">
+        Report
+      </button>
     </div>
   </div>
 </div>
