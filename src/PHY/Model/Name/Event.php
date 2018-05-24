@@ -33,7 +33,7 @@
         protected static $_source = [
             'schema' => [
                 'primary' => [
-                    'table' => 'name',
+                    'table' => 'name_event',
                     'columns' => [
                         'name_id' => 'variable',
                         'visitor' => 'int',
