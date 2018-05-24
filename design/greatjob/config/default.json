@@ -1,0 +1,19 @@
+{
+  "layout": {
+    "template": "core/layout.phtml",
+    "children": {
+      "head": {
+        "viewClass": "head"
+      },
+      "footer": {
+        "viewClass": "footer"
+      },
+      "content": {
+        "viewClass": "parser"
+      },
+      "modal": {
+        "template": "generic/modal.phtml"
+      }
+    }
+  }
+}

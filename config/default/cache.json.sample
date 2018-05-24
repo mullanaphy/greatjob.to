@@ -1,0 +1,17 @@
+{
+    "default": {
+        "type": "memcached",
+        "servers": [
+            ["localhost", "11211"]
+        ]
+    },
+    "disk": {
+        "type": "disk"
+    },
+    "apc": {
+        "type": "apc",
+        "mode": "opcode"
+    },
+    "none": {
+    }
+}
