@@ -50,7 +50,7 @@
             $content = $layout->block('content');
             if (!$name) {
                 $content->setTemplate('name/content.phtml');
-                return $response;
+                return;
             }
 
             $nameItem = $manager->load(['slug' => $name], new Name);
@@ -63,15 +63,13 @@
                 $content->setTemplate('name/banned.phtml');
                 $content->setVariable('reason', $nameItem->reason);
                 $actions->setVariable('name', '');
-                return $response;
+                return;
             }
 
             $content->setTemplate('name/content.phtml');
             $content->setVariable('name', $name);
             $content->setVariable('count', $nameItem->count);
             $actions->setVariable('name', $name);
-
-            return $response;
         }
 
     }
