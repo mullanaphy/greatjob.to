@@ -85,6 +85,7 @@
 
             $actions = $layout->block('modal');
             $actions->setTemplate('name/actions.phtml');
+            $actions->setVariable('id', $nameItem->id());
             if ($nameItem->banned) {
                 $response->setStatusCode(403);
                 $content->setTemplate('name/banned.phtml');
@@ -98,5 +99,4 @@
             $content->setVariable('count', $nameItem->count);
             $actions->setVariable('name', $name);
         }
-
     }
