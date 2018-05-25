@@ -57,9 +57,17 @@
                 return;
             }
 
-            $matches = [];
-            preg_match('/' . join('|', $app->get('config/bummers')) . '/', strtolower($name), $matches);
-            $banned = count($matches) > 0;
+            $nameLowercased = strtolower($name);
+
+            // Easter Eggs:
+            if ($nameLowercased === 'robert\'); drop table students;--') {
+                $name = 'Bobby Tables';
+                $banned = false;
+            } else {
+                $matches = [];
+                preg_match('/' . join('|', $app->get('config/bummers')) . '/', $nameLowercased, $matches);
+                $banned = count($matches) > 0;
+            }
 
             $nameItem = $manager->load(['slug' => $name], new Name);
             $currentTime = date('Y-m-d H:i:s');
