@@ -47,6 +47,7 @@
 
             $name = rawurldecode(ltrim($request->getPath(), DIRECTORY_SEPARATOR));
             $name = str_replace(DIRECTORY_SEPARATOR, ' ', $name);
+            $name = explode('?', $name)[0];
 
             $layout = $this->getLayout();
             $content = $layout->block('content');
