@@ -60,6 +60,22 @@
 
             $nameLowercased = strtolower($name);
 
+            $hasExtension = explode('.', $nameLowercased);
+
+            if (count($hasExtension) > 1
+                && in_array($hasExtension[count($hasExtension) - 1], [
+                    'xml',
+                    'php',
+                    'ini',
+                    'html',
+                ])) {
+                $response->setStatusCode(403);
+                $content->setTemplate('name/fuck-off.phtml');
+                $content->setVariable('reason', 'idiot');
+                $layout->block('modal')->setVariable('name', '');
+                return;
+            }
+
             // Easter Eggs:
             if ($nameLowercased === 'robert\'); drop table students;--') {
                 $name = 'Bobby Tables';
