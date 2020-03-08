@@ -11,7 +11,7 @@
      * http://opensource.org/licenses/osl-3.0.php
      * If you did not receive a copy of the license and are unable to
      * obtain it through the world-wide-web, please send an email
-     * to john@jo.mu so we can send you a copy immediately.
+     * to hi@john.mu so we can send you a copy immediately.
      */
 
     namespace PHY\Event;
@@ -21,9 +21,9 @@
      *
      * @package PHY\Event\Menu
      * @category PHY\GreatJob
-     * @copyright Copyright (c) 2018 John Mullanaphy (https://jo.mu/)
+     * @copyright Copyright (c) 2018 John Mullanaphy (https://john.mu/)
      * @license http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
-     * @author John Mullanaphy <john@jo.mu>
+     * @author John Mullanaphy <hi@john.mu>
      */
     class DefaultHeaders
     {
