@@ -68,6 +68,9 @@
                     'php',
                     'ini',
                     'html',
+                    'bat',
+                    'json',
+                    'txt',
                 ])) {
                 $response->setStatusCode(403);
                 $content->setTemplate('name/fuck-off.phtml');
